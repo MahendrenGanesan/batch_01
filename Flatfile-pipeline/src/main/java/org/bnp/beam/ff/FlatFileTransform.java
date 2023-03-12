@@ -65,6 +65,8 @@ public class FlatFileTransform {
 		 * (Bucket bucket : buckets.iterateAll()) {
 		 * System.out.println(bucket.toString()); }
 		 */
+		/*
+		Below code works fine but being commented as we aim for dataflow runner way of working.
 		Credentials credential = null;
 		List<String> SCOPES = new ArrayList<>();
 		SCOPES.addAll(StorageScopes.all());
@@ -78,7 +80,7 @@ public class FlatFileTransform {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 
-		}
+		}*/
 
 		PipelineOptionsFactory.register(FFpipelineOptions.class);
 		FFpipelineOptions options = PipelineOptionsFactory.fromArgs(args).withValidation().as(FFpipelineOptions.class);
