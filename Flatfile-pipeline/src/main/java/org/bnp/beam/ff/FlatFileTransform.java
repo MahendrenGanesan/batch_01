@@ -140,6 +140,11 @@ public class FlatFileTransform {
 
 		void setOutput(String output);
 
+		@Description("BuildNumber")
+		@Default.String("Not Supplied")
+		String getBuildNumber();
+		String setBuildNumber(String buildNumber);
+
 	}
 
 }
