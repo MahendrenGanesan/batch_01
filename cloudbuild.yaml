@@ -1,0 +1,35 @@
+steps:
+  - name: gcr.io/cloud-builders/git
+    args:
+      - '-c'
+      - |
+        git rev-parse --short HEAD > _BUILDNUMBER
+    dir: MahendrenGanesan/batch_01
+    id: get build number
+    waitFor:
+      - '-'
+    entrypoint: bash
+  - name: 'maven:3.6.0-jdk-11-slim'
+    args:
+      - '-c'
+      - |
+        buildNumber=$(cat _BUILDNUMBER)
+        echo "Build Number is ${buildNumber}"
+        ./submit.sh org.bnp.beam.ff.FlatFileTransform \
+          --runner=DataflowRunner \
+          --project=compact-scene-375910 \
+          --gcpTempLocation=gs://fund_accounting_gcp12_mahe/tmp \
+          --input=gs://apache-beam-samples/shakespeare/* \
+          --output=gs://fund_accounting_gcp12_mahe/tmp/counts_03 \
+          --region=us-central1 \
+          --autoscalingAlgorithm=THROUGHPUT_BASED \
+          --maxNumWorkers=10 \
+          --jobName=demo \
+          --buildNumber=${buildNumber}
+    dir: batch_01/Flatfile-pipeline
+    id: build and submit the dataflow job
+    waitFor:
+      - get build number
+    entrypoint: bash
+options:
+  logging: CLOUD_LOGGING_ONLY
