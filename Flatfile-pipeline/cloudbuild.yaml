@@ -15,7 +15,7 @@ steps:
       - |
         buildNumber=$(cat _BUILDNUMBER)
         echo "Build Number is ${buildNumber}"
-        ./submit.sh org.bnp.beam.ff.FlatFileTransform \
+        ./Flatfile-pipeline/submit.sh org.bnp.beam.ff.FlatFileTransform \
           --runner=DataflowRunner \
           --project=compact-scene-375910 \
           --gcpTempLocation=gs://fund_accounting_gcp12_mahe/tmp \
