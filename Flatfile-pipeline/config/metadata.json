@@ -1,0 +1,21 @@
+{
+  "name": "Beam Application",
+  "description": "Beam Applications",
+  "parameters": [
+    {
+      "name": "input",
+      "label": "Input  file.",
+      "helpText": "Input Json file to read from."
+    },
+    {
+      "name": "output",
+      "label": "Side Input Slogans file.",
+      "helpText": "Side Input Slogans file."
+    },
+    {
+      "name": "buildNumber",
+      "label": "Build Number",
+      "helpText": "Build Number"
+    }
+  ]
+}
