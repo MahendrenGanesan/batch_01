@@ -4,7 +4,7 @@ steps:
       cd Flatfile-pipeline
       mvn clean package
   - name: google/cloud-sdk:420.0.0-slim
-    args: [ './scripts/deploy_dataflow_job.sh' ]
+    args: [ './Flatfile-pipeline/scripts/deploy_dataflow_job.sh' ]
     env:
       - 'PROJECT_ID=$PROJECT_ID'
       - 'LOCATION=$LOCATION'
