@@ -65,6 +65,8 @@ gcloud beta builds triggers create manual \
 --repo="https://github.com/mahendrenganesan/batch_01" \
 --repo-type="GITHUB" \
 --branch="master" \
---build-config="Flatfile-pipeline/dataflow-deploy-job.yaml" \
---substitutions _REPO_NAME="internal-images",_IMAGE_NAME="dataflow/beam-project-java",_IMAGE_TAG="latest",_METADATA_TEMPLATE_FILE_PATH="gs://fund_accounting_gcp12_mahe/config/metadata.json",_SDK_LANGUAGE="JAVA",_FLEX_TEMPLATE_BASE_IMAGE="JAVA11",_METADATA_FILE="-",_JAR="target/beam-project-0.1.0.jar",_FLEX_TEMPLATE_JAVA_MAIN_CLASS="org.bnp.beam.ff.FlatFileTransform" \
+--build-config="./Flatfile-pipeline/dataflow-deploy-job.yaml" \
+--substitutions _REPO_NAME="internal-images",_IMAGE_NAME="dataflow/beam-project-java",_IMAGE_TAG="latest",_METADATA_TEMPLATE_FILE_PATH="gs://fund_accounting_gcp12_mahe/config/metadata.json",_SDK_LANGUAGE="JAVA",_FLEX_TEMPLATE_BASE_IMAGE="JAVA11",_METADATA_FILE="-",_JAR="./Flatfile-pipeline/target/Flatfile-pipeline-0.0.1-SNAPSHOT-shaded.jar",_FLEX_TEMPLATE_JAVA_MAIN_CLASS="org.bnp.beam.ff.FlatFileTransform" \
 --verbosity="debug"
+
+/workspace/Flatfile-pipeline/target/Flatfile-pipeline-0.0.1-SNAPSHOT-shaded.jar

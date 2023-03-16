@@ -1,21 +1,23 @@
 steps:
-  - name: maven:3.8.6-openjdk-11-slim
+  - name: 'maven:3.8.6-openjdk-11-slim'
     script: |
       cd Flatfile-pipeline
       mvn clean package
-  - name: google/cloud-sdk:420.0.0-slim
-    args: [ './Flatfile-pipeline/scripts/deploy_dataflow_job.sh' ]
+      chmod +x ./scripts/deploy_dataflow_job.sh
+  - name: 'google/cloud-sdk:420.0.0-slim'
     env:
-      - 'PROJECT_ID=$PROJECT_ID'
-      - 'LOCATION=$LOCATION'
-      - 'REPO_NAME=$_REPO_NAME'
-      - 'IMAGE_NAME=$_IMAGE_NAME'
-      - 'IMAGE_TAG=$_IMAGE_TAG'
-      - 'METADATA_TEMPLATE_FILE_PATH=$_METADATA_TEMPLATE_FILE_PATH'
-      - 'SDK_LANGUAGE=$_SDK_LANGUAGE'
-      - 'FLEX_TEMPLATE_BASE_IMAGE=$_FLEX_TEMPLATE_BASE_IMAGE'
-      - 'METADATA_FILE=$_METADATA_FILE'
-      - 'JAR=$_JAR'
-      - 'FLEX_TEMPLATE_JAVA_MAIN_CLASS=$_FLEX_TEMPLATE_JAVA_MAIN_CLASS'
+      - PROJECT_ID=$PROJECT_ID
+      - LOCATION=$LOCATION
+      - REPO_NAME=$_REPO_NAME
+      - IMAGE_NAME=$_IMAGE_NAME
+      - IMAGE_TAG=$_IMAGE_TAG
+      - METADATA_TEMPLATE_FILE_PATH=$_METADATA_TEMPLATE_FILE_PATH
+      - SDK_LANGUAGE=$_SDK_LANGUAGE
+      - FLEX_TEMPLATE_BASE_IMAGE=$_FLEX_TEMPLATE_BASE_IMAGE
+      - METADATA_FILE=$_METADATA_FILE
+      - JAR=$_JAR
+      - FLEX_TEMPLATE_JAVA_MAIN_CLASS=$_FLEX_TEMPLATE_JAVA_MAIN_CLASS
+    args:
+      - ./Flatfile-pipeline/scripts/deploy_dataflow_job.sh
 options:
   logging: CLOUD_LOGGING_ONLY
