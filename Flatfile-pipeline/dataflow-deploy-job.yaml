@@ -1,6 +1,7 @@
 steps:
   - name: maven:3.8.6-openjdk-11-slim
     script: |
+      cd Flatfile-pipeline
       mvn clean package
   - name: google/cloud-sdk:420.0.0-slim
     args: [ './scripts/deploy_dataflow_job.sh' ]

@@ -1,4 +1,5 @@
 steps:
-  - name: maven:3.8.6-openjdk-11-slim
+  - name: maven
     script: |
+      cd Flatfile-pipeline
       mvn test

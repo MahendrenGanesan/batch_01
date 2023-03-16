@@ -40,3 +40,31 @@ mvn compile exec:java \
 -Pdataflow-runner
 
 mvn compile exec:java -D exec.mainClass=org.bnp.beam.ff.FlatFileTransform  -D exec.args="--project=compact-scene-375910 --runner=DataflowRunner --jobName=file-copy-pjt-name-2023-03-16-time --region=europe-west1 --streaming=false --zone=europe-west1-d --tempLocation=gs://fund_accounting_gcp12_mahe/tmp --gcpTempLocation=gs://fund_accounting_gcp12_mahe/tmp --stagingLocation=gs://fund_accounting_gcp12_mahe/tmp --serviceAccount=1098257669558-compute@developer.gserviceaccount.com --input=gs://apache-beam-samples/shakespeare/* --output=gs://fund_accounting_gcp12_mahe/tmp/counts_02 " -Pdataflow-runner
+
+
+//01 UT
+gcloud beta builds triggers create github \
+--project=compact-scene-375910 \
+--region=us-central1 \
+--name="trigger-dataflow-unit-tests-team-beam-project" \
+--repo-name=batch_01 \
+--repo-owner=MahendrenGanesan \
+--branch-pattern=".*" \
+--build-config=dataflow-run-test.yaml \
+--include-logs-with-status \
+--verbosity="debug"
+
+gcloud beta builds triggers delete  github --project=compact-scene-375910 --region=us-central1 --name="trigger-dataflow-unit-tests-team-beam-project" 
+gcloud beta builds triggers create github --project=compact-scene-375910 --region=us-central1 --name="trigger-dataflow-unit-tests-team-beam-project" --repo-name=batch_01 --repo-owner=MahendrenGanesan --branch-pattern=".*" --build-config=Flatfile-pipeline/dataflow-run-test.yaml --include-logs-with-status --verbosity="debug"
+
+
+gcloud beta builds triggers create manual \
+--project=compact-scene-375910 \
+--region=us-central1 \
+--name="deploy-dataflow-template-beam-project-java" \
+--repo="https://github.com/mahendrenganesan/batch_01" \
+--repo-type="GITHUB" \
+--branch="master" \
+--build-config="Flatfile-pipeline/dataflow-deploy-job.yaml" \
+--substitutions _REPO_NAME="internal-images",_IMAGE_NAME="dataflow/beam-project-java",_IMAGE_TAG="latest",_METADATA_TEMPLATE_FILE_PATH="gs://fund_accounting_gcp12_mahe/config/metadata.json",_SDK_LANGUAGE="JAVA",_FLEX_TEMPLATE_BASE_IMAGE="JAVA11",_METADATA_FILE="-",_JAR="target/beam-project-0.1.0.jar",_FLEX_TEMPLATE_JAVA_MAIN_CLASS="org.bnp.beam.ff.FlatFileTransform" \
+--verbosity="debug"
