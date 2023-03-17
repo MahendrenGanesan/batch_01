@@ -6,8 +6,10 @@ set -u
 
 echo "#######Building Dataflow Docker image"
 cd  Flatfile-pipeline
-gcloud builds submit --tag us-central1-docker.pkg.dev/cloudrun/container/hello:latest .
-gcloud builds submit --tag "$LOCATION-docker.pkg.dev/$PROJECT_ID/$REPO_NAME/$IMAGE_NAME:$IMAGE_TAG" .
+gcloud auth configure-docker us-central1-docker.pkg.dev
+gcloud auth configure-docker us-central1-docker.pkg.dev/image-repo/hello:latest
+#gcloud builds submit --tag us-central1-docker.pkg.dev/cloudrun/container/hello:latest .
+#gcloud builds submit --tag "$LOCATION-docker.pkg.dev/$PROJECT_ID/$REPO_NAME/$IMAGE_NAME:$IMAGE_TAG" .
 
 echo "#######Creating Dataflow Flex Template"
 
