@@ -6,7 +6,7 @@ set -u
 
 echo "#######Building Dataflow Docker image"
 
-gcloud builds submit --tag "$LOCATION-docker.pkg.dev/$PROJECT_ID/$REPO_NAME/$IMAGE_NAME:$IMAGE_TAG" ./Dockerfile
+gcloud builds submit --tag "$LOCATION-docker.pkg.dev/$PROJECT_ID/$REPO_NAME/$IMAGE_NAME:$IMAGE_TAG" ./Flatfile-pipeline/Dockerfile
 
 echo "#######Creating Dataflow Flex Template"
 
