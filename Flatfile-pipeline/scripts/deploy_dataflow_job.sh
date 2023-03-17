@@ -5,8 +5,9 @@ set -o pipefail
 set -u
 
 echo "#######Building Dataflow Docker image"
-
-gcloud builds submit --tag "$LOCATION-docker.pkg.dev/$PROJECT_ID/$REPO_NAME/$IMAGE_NAME:$IMAGE_TAG" ./Flatfile-pipeline/Dockerfile
+cd  Flatfile-pipeline
+gcloud builds submit --tag us-docker.pkg.dev/cloudrun/container/hello:latest .
+gcloud builds submit --tag "$LOCATION-docker.pkg.dev/$PROJECT_ID/$REPO_NAME/$IMAGE_NAME:$IMAGE_TAG" .
 
 echo "#######Creating Dataflow Flex Template"
 
